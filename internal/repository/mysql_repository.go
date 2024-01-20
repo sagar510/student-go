@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/sagar510/student-go/internal/domain"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -9,7 +11,15 @@ import (
 var db *gorm.DB
 
 func InitDB() {
-	dsn := "root:@tcp(localhost:3306/studentmarks_development?charset=utf8mb4&parseTime=True&loc=Local)"
+
+	username := "root"
+	password := ""
+	host := "localhost"
+	databaseName := "studentmarks_development"
+
+	//dsn := "root:@tcp(localhost:3306/studentmarks_development?charset=utf8mb4&parseTime=True&loc=Local)"
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", username, password, host, databaseName)
+
 	var err error
 
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
