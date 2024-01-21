@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/sagar510/student-go/internal/repository"
+	"github.com/sagar510/student-go/internal/service"
 )
 
 func main() {
@@ -13,7 +14,9 @@ func main() {
 
 	db := repository.GetDB()
 
-	repository.NewCourseRepository(db)
+	repo := repository.NewCourseRepository(db)
+
+	service.NewCourseService(repo)
 
 	fmt.Println("Hello, World!")
 }
