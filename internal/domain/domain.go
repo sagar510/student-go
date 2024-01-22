@@ -2,13 +2,15 @@ package domain
 
 import (
 	"math/big"
+
+	"gorm.io/gorm"
 )
 
 type Students struct {
 	id           big.Int
-	student_name string
-	phone        string
-	address      string
+	Student_name string
+	Phone        string
+	Address      string
 
 	user_id  big.Int
 	admin_id big.Int
@@ -17,10 +19,13 @@ type Students struct {
 }
 
 type Courses struct {
-	id          big.Int
-	course_name string
-	ongoing     bool
-	duration    int
+	gorm.Model
+	//Id          uint
+	Course_name string
+	Ongoing     bool
+	Duration    int
+	//Created_at  time.Time `gorm:"-"`
+	//Updated_at  time.Time `gorm:"-"`
 
 	enrolments      []Enrolments
 	teacher_courses []Teacher_courses
@@ -28,8 +33,8 @@ type Courses struct {
 
 type Enrolments struct {
 	id    big.Int
-	marks int
-	year  int
+	Marks int
+	Year  int
 
 	student_id big.Int
 	course_id  big.Int
@@ -37,9 +42,9 @@ type Enrolments struct {
 
 type Teachers struct {
 	id           big.Int
-	teacher_name string
-	phone        string
-	address      string
+	Teacher_name string
+	Phone        string
+	Address      string
 
 	user_id  big.Int
 	admin_id big.Int
@@ -48,9 +53,14 @@ type Teachers struct {
 }
 
 type Teacher_courses struct {
-	id   big.Int
-	year int
+	gorm.Model //`gorm:"soft_delete: false"`
 
-	teacher_id big.Int
-	course_id  big.Int
+	//id   uint
+	Year int
+
+	Teacher_id uint
+	Course_id  uint
+
+	enrolments      []Enrolments
+	teacher_courses []Teacher_courses
 }

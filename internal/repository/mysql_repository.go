@@ -22,14 +22,16 @@ func InitDB() {
 
 	var err error
 
-	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+		//DisableAutomaticSoftDelete: true,
+	})
 
 	if err != nil {
 		panic("failed to connect to database")
 
 	}
 
-	db.AutoMigrate(&domain.Students{})
+	db.AutoMigrate(&domain.Students{}, &domain.Courses{}, &domain.Enrolments{}, &domain.Teacher_courses{}, &domain.Teachers{})
 
 }
 
