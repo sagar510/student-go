@@ -18,7 +18,7 @@ func InitDB() {
 	databaseName := "studentmarks_development"
 
 	//dsn := "root:@tcp(localhost:3306/studentmarks_development?charset=utf8mb4&parseTime=True&loc=Local)"
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", username, password, host, databaseName)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?parseTime=true", username, password, host, databaseName)
 
 	var err error
 

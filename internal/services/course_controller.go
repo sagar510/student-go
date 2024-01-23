@@ -6,6 +6,7 @@ import (
 
 	"github.com/sagar510/student-go/internal/domain"
 	"github.com/sagar510/student-go/internal/repository"
+	"github.com/sagar510/student-go/internal/utils"
 )
 
 /*type CourseControllerInterface interface{
@@ -84,4 +85,38 @@ func (cc *CourseController) TeachCourse(w http.ResponseWriter, r *http.Request) 
 	}
 
 	w.WriteHeader(http.StatusNoContent)
+}
+
+func (cc *CourseController) ViewCourses(w http.ResponseWriter, r *http.Request) {
+	courses, err := cc.courseRepository.ViewCourses()
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	utils.RespondJSON(w, courses)
+}
+
+func (cc *CourseController) ATeacherCourse(w http.ResponseWriter, r *http.Response) {
+	var requestData map[string]int
+	if err := json.NewDecoder(r.Body).Decode(&requestData); err != nil {
+		http.Error(w, "Invalid JSON format", http.StatusBadRequest)
+		return
+	}
+
+	teacherID, ok := requestData["teacherID"]
+
+	if !ok {
+		http.Error(w, "Teacher ID in JSON", http.StatusBadRequest)
+		return
+	}
+
+	list, err := cc.courseRepository.ATeacherCourse(uint(teacherID))
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	utils.RespondJSON(w, list)
 }

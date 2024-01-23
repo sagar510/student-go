@@ -31,6 +31,7 @@ func main() {
 
 	router.HandleFunc("/createcourse", courseHandler.CreateCourse).Methods("POST")
 	router.HandleFunc("/teachcourse", courseHandler.TeachCourse).Methods("POST")
+	router.HandleFunc("/viewcourses", courseHandler.ViewCourses).Methods("GET")
 
 	corsHandler := cors2.Mangement(router)
 
