@@ -28,7 +28,6 @@ func InitDB() {
 
 	if err != nil {
 		panic("failed to connect to database")
-
 	}
 
 	db.AutoMigrate(&domain.Students{}, &domain.Courses{}, &domain.Enrolments{}, &domain.Teacher_courses{}, &domain.Teachers{})

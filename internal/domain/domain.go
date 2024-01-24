@@ -32,12 +32,13 @@ type Courses struct {
 }
 
 type Enrolments struct {
-	id    big.Int
+	gorm.Model
+	//id    big.Int
 	Marks int
 	Year  int
 
-	student_id big.Int
-	course_id  big.Int
+	Student_id uint
+	Course_id  uint
 }
 
 type Teachers struct {

@@ -20,8 +20,10 @@ func main() {
 
 	//All Repositories
 	teachCourseRepository := repository.NewCourseRepository(db)
+	enrolCourseRepository := repository.NewStudentCourseRepository(db)
 
 	courseHandler := controller.NewCourseController(teachCourseRepository)
+	enrolHandler := controller.NewStudentCourseController(enrolCourseRepository)
 
 	// Creating a Gorilla Mux router
 	router := mux.NewRouter()
@@ -31,7 +33,10 @@ func main() {
 
 	router.HandleFunc("/createcourse", courseHandler.CreateCourse).Methods("POST")
 	router.HandleFunc("/teachcourse", courseHandler.TeachCourse).Methods("POST")
-	router.HandleFunc("/viewcourses", courseHandler.ViewCourses).Methods("GET")
+
+	router.HandleFunc("/viewcoursesteacher", courseHandler.ViewCourses).Methods("GET")
+	router.HandleFunc("/viewcoursesstudent", enrolHandler.ViewCourses).Methods("GET")
+	router.HandleFunc("/enrol", enrolHandler.EnrolCourse).Methods("POST")
 
 	corsHandler := cors2.Mangement(router)
 
