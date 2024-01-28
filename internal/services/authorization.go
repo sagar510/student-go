@@ -6,10 +6,7 @@ import (
 	"net/http"
 )
 
-type ResultStatus struct {
-	isValid bool
-	role    string
-}
+
 
 func ValidateToken(token string) (bool, string) {
 	url := "http://localhost:3000/verifytoken"
