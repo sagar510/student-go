@@ -11,3 +11,5 @@ readme 6
 readme7
 
 readme8
+
+adding stash
